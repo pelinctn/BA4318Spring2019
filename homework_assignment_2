@@ -1,0 +1,55 @@
+
+import math
+
+# Q1
+n = 0
+while n < 1:
+    n = int(input("How many points: "))
+    if n < 1:
+        print("Error, input more than 1")
+    print()
+    
+coor = []
+for i in range(n):
+	print(i+1,". point")
+	x = float(input("x: "))
+	y = float(input("y: "))
+	c = tuple([x,y])
+	coor.append(c)
+	print()
+print("Points: ", coor)
+print()
+
+# Test Variables
+#n = 3
+#coor = [(1.0, 2.0), (2.0, 3.0), (5.0, 4.0)]
+
+#Q2
+x_center = 0
+y_center = 0
+for i in range(n):
+    x_center = x_center + coor[i][0]
+    y_center = y_center + coor[i][1]
+x_center = x_center / n
+y_center = y_center / n
+print("Center of X points: ", x_center)
+print("Center of Y points: ", y_center)
+print()
+
+#Q3
+distance = []
+x_square = 0
+y_square = 0
+for i in range(n):
+    x_square = math.pow(abs(x_center-coor[i][0]),2)
+    y_square = math.pow(abs(y_center-coor[i][1]),2)
+    distance.append(math.sqrt(x_square + y_square))
+print("Distances from center")
+for i in range(n):
+    print(i+1," point: ", distance[i])
+print()
+
+#Q4
+distance.sort()
+print("Closest from center: ", distance[0])
+print("Farthest from center: ", distance[n-1])
