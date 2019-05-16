@@ -1,0 +1,33 @@
+# imports for stats libraries
+from math import sqrt
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+from statsmodels.tsa.api import SimpleExpSmoothing, Holt #,ExponentialSmoothing,  
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+import matplotlib.pyplot as plt 
+from sklearn.metrics import mean_squared_error
+import pdb
+
+# The following lines are to suppress warning messages.
+import warnings
+warnings.filterwarnings("ignore")
+
+# Load data into a dataframe object, also create a copy of raw data in an array
+original = pd.read_csv("HW03_USD_TRY_Trading.txt", sep='\t')
+
+dataframe = original.head(len(original)-1)
+dataframe.info()
+dayseries = dataframe['Day']
+openseries = dataframe['Open']
+freq = 1440  #data
+for i in range(len(dayseries)) :
+    if dayseries[i] == "6.05.2019" :
+        #print(dayseries[i])
+        break
+mayindex = i
+maydata = openseries[mayindex:len(dayseries)]
+numbers = np.asarray(maydata,dtype='double')
+result = sm.tsa.seasonal_decompose(numbers,freq=24,model='Additive')
+result.plot()
+plt.show()
